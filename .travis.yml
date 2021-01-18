@@ -1,0 +1,16 @@
+sudo: required
+
+language: generic
+
+services:
+  - docker
+
+before_install:
+  - echo "build start"
+  - docker build -t hwangse/docker-react-app -f Dockerfile.dev .
+
+script:
+  - docker run -e CI=true hwangse/docker-react-app npm run test -- --coverage
+
+after_success:
+  - echo "Test complete!"
